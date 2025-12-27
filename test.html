@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    // A button to trigger the performance-killing function
+    <button onclick="killPerformance()">Kill the performance</button>
+    <div id="container"></div>
+    <script>
+      const container = document.getElementById("container");
+      // Add 1000 boxes
+      for (let i = 0; i < 1000; i++) {
+        const div = document.createElement("div");
+        div.textContent = "Test";
+        div.style.padding = "10px";
+        div.style.border = "1px solid black";
+        container.appendChild(div);
+      }
+
+      /**
+       * @reason This function demonstrates layout thrashing by mixin read and write operations in a loop.
+       * @performance_issue Layout Thrashing
+       * @impact High CPU Usage, Slow Rendering
+       * */
+      function killPerformance() {
+        const divs = document.querySelectorAll("div");
+        // BAD CODE (Layout Thrashing)
+        // We're mixing read and write operations inside the loop.
+        for (let i = 0; i < divs.length; i++) {
+          // 1. READ: Browser has to calculate the width
+          const width = divs[i].offsetWidth;
+          // 2. WRITE: We're changing the width -> Layout gets "invalidated" (broken)
+          divs[i].style.width = width + 1 + "px";
+        }
+      }
+    </script>
+  </body>
+</html>
