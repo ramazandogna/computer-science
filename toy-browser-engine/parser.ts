@@ -159,7 +159,68 @@ class HTMLParser {
    * Parses attributes
    */
   private parseAttributes(): HTMLAttribute[] {
-    return [];
+    const attributes: HTMLAttribute[] = [];
+
+    // Simple attribute parsing logic
+    while (
+      this.position < this.input.length &&
+      this.input[this.position] !== ">" &&
+      this.input[this.position] !== "/>"
+    ) {
+      this.skipWhitespace();
+
+      // Attribute name
+      let attrName = "";
+      let attrValue: string = "";
+
+      // Read atttribute name
+      while (
+        this.position < this.input.length &&
+        /[a-zA-Z-]/.test(this.input[this.position])
+      ) {
+        attrName += this.input[this.position];
+        this.position++;
+      }
+
+      if (attrName) {
+        this.skipWhitespace();
+        // Check for '='
+        if (this.input[this.position] === "=") {
+          this.position++; // Skip '='
+        } else {
+          // Attribute without value
+          attributes.push({
+            name: attrName,
+            value: "true",
+          });
+        }
+      } else {
+        return attributes;
+      }
+
+      // Attribute value
+      this.skipWhitespace();
+      const quoteChar = this.input[this.position];
+      if (quoteChar === '"' || quoteChar === "'") {
+        attributes.push({
+          name: attrName,
+          value: attrValue,
+        });
+        // Skip opening quote
+        this.position++;
+        // Read until closing quote
+        while (
+          this.position < this.input.length &&
+          this.input[this.position] !== quoteChar
+        ) {
+          attrValue += this.input[this.position];
+          this.position++;
+        }
+        this.position++;
+      }
+    }
+
+    return attributes;
   }
 
   /**
