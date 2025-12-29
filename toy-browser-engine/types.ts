@@ -71,6 +71,18 @@ export type KnownHTMLTags =
   | "track"
   | "wbr";
 
+export type VoidTags =
+  | "br"
+  | "hr"
+  | "img"
+  | "input"
+  | "meta"
+  | "link"
+  | "embed"
+  | "param"
+  | "track"
+  | "wbr";
+
 export interface HTMLTags {
   type: "tag";
   name: KnownHTMLTags | string;

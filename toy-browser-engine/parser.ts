@@ -7,6 +7,7 @@ import {
   HTMLAttribute,
   HTMLComment,
   ParseResult,
+  VoidTags,
 } from "./types";
 
 class HTMLParser {
@@ -83,6 +84,20 @@ class HTMLParser {
     return regularTagNode;
   }
 
+  // Void tags (for self-closing tags) are handled separately
+  private readonly VOID_TAGS: VoidTags[] = [
+    "br",
+    "hr",
+    "img",
+    "input",
+    "meta",
+    "link",
+    "embed",
+    "param",
+    "track",
+    "wbr",
+  ];
+
   /**
    * Parses text content
    */
@@ -151,7 +166,49 @@ class HTMLParser {
    * Parses self closing tags
    */
   private parseSelfClosingTag(): HTMLTags | null {
-    return null;
+    // Take tag name
+    let tagName = "";
+    let i = this.position + 1; // Skip '<'
+    while (i < this.input.length && /[a-zA-Z]/.test(this.input[i])) {
+      tagName += this.input[i];
+      i++;
+    }
+
+    this.position = i;
+
+    // Skip whitespaces and find attributes and parse it
+    this.skipWhitespace();
+    const attributes = this.parseAttributes();
+
+    // Check for "/>" ending
+    const isVoidTag = this.VOID_TAGS.includes(tagName as VoidTags);
+    const hasSlashClosing = this.input.startsWith("/>", this.position);
+
+    if (isVoidTag || hasSlashClosing) {
+      // Move past whitespace before "/>"
+      if (hasSlashClosing) {
+        // Move past "/>"
+        this.position += 2;
+      } else {
+        // check for ">"
+        if (this.input[this.position] === ">") {
+          this.position += 1; // Move past ">"
+        }
+      }
+
+      return {
+        type: "tag",
+        name: tagName as KnownHTMLTags,
+        attributes: attributes,
+        children: [],
+      };
+    } else {
+      this.errors.push(
+        `Expected "/>" or ">" for self-closing tag <${tagName}> at position ${this.position}`
+      );
+      this.position += 1; // Move past ">"
+      return null;
+    }
   }
 
   // UTILITY METHODS
