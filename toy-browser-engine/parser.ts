@@ -94,6 +94,30 @@ class HTMLParser {
    * Parses an HTML comment
    */
   private parseComment(): HTMLComment | null {
+    const commentStart = "<!--";
+    const commentEnd = "-->";
+    // Check if the current position starts with comment start
+    if (this.input.startsWith(commentStart, this.position)) {
+      // Find the end of the comment
+      const start = this.position + commentStart.length;
+      const end = this.input.indexOf(commentEnd, start);
+      // If end found, extract comment content
+      if (end !== -1) {
+        // Move position past the comment
+        const content = this.input.substring(start, end);
+        this.position = end + commentEnd.length;
+        return {
+          type: "comment",
+          content: content,
+        };
+      } else {
+        this.errors.push(
+          `Unterminated comment starting at position ${this.position}`
+        );
+        this.position++;
+        return null;
+      }
+    }
     return null;
   }
 
@@ -116,14 +140,14 @@ class HTMLParser {
   /**
    * Skips whitespace characters
    */
-    private skipWhitespace(): void {
-      while (
-        this.position < this.input.length &&
-        /\s/.test(this.input[this.position])
-      ) {
-        this.position++;
-      }
+  private skipWhitespace(): void {
+    while (
+      this.position < this.input.length &&
+      /\s/.test(this.input[this.position])
+    ) {
+      this.position++;
     }
+  }
 }
 
 export default HTMLParser;
