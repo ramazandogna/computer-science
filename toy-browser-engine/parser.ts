@@ -87,6 +87,25 @@ class HTMLParser {
    * Parses text content
    */
   private parseText(): HTMLText | null {
+    let start = this.position;
+    while (
+      this.position < this.input.length &&
+      this.input[this.position] !== "<"
+    ) {
+      this.position++;
+    }
+    // check if any text was found
+    if (this.position > start) {
+      const content = this.input.substring(start, this.position).trim();
+      // content is empty string check
+      if (content === "") {
+        return null;
+      }
+      return {
+        type: "text",
+        content: content,
+      };
+    }
     return null;
   }
 
