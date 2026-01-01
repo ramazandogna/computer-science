@@ -44,8 +44,6 @@ class HTMLParser {
         const textNode = this.parseText();
         if (textNode) {
           nodes.push(textNode);
-        } else {
-          this.position++;
         }
       }
     }
@@ -63,10 +61,17 @@ class HTMLParser {
    * Parses an HTML tag and its attributes
    */
   private parseTag(): Node | null {
+    // Position hala '<' uzerinde, alt fonksiyonlar handle edecek
+
     // CHECK FOR COMMENT
     const commentNode = this.parseComment();
     if (commentNode) {
       return commentNode;
+    }
+
+    // CHECK FOR DOCTYPE
+    if (this.input.startsWith("<!DOCTYPE", this.position)) {
+      return this.parseDoctype();
     }
 
     // CHECK FOR SELF-CLOSING TAG
@@ -80,8 +85,49 @@ class HTMLParser {
       return null;
     }
 
-    const regularTagNode = this.parseRegularTag(); // Placeholder for regular tag parsing
+    const regularTagNode = this.parseRegularTag();
     return regularTagNode;
+  }
+
+  /**
+   * Parses DOCTYPE declaration
+   */
+  private parseDoctype(): HTMLTags | null {
+    // Skip "<!DOCTYPE"
+    this.position += 9;
+    
+    // Skip whitespace
+    this.skipWhitespace();
+    
+    // Read DOCTYPE value (usually "html")
+    let doctypeValue = "";
+    while (this.position < this.input.length && 
+           this.input[this.position] !== ">" &&
+           !/\s/.test(this.input[this.position])) {
+      doctypeValue += this.input[this.position];
+      this.position++;
+    }
+    
+    // Skip to closing ">"
+    while (this.position < this.input.length && this.input[this.position] !== ">") {
+      this.position++;
+    }
+    
+    if (this.input[this.position] === ">") {
+      this.position++; // Skip ">"
+    }
+    
+    return {
+      type: "tag",
+      name: "!DOCTYPE" as KnownHTMLTags,
+      attributes: [
+        {
+          name: doctypeValue || "html",
+          value: "true"
+        }
+      ],
+      children: []
+    };
   }
 
   // Void tags (for self-closing tags) are handled separately
@@ -213,7 +259,7 @@ class HTMLParser {
         // Attribute without value
         attributes.push({
           name: attrName,
-          value: attrValue, 
+          value: attrValue,
         });
       }
     }
@@ -224,50 +270,55 @@ class HTMLParser {
   /**
    * Parses self closing tags
    */
+  /**
+   * Parses self closing tags
+   */
   private parseSelfClosingTag(): HTMLTags | null {
-    // Take tag name
-    let tagName = "";
+    // Peek ahead: tag name'i oku ama position'ı değiştirme
     let i = this.position + 1; // Skip '<'
-    while (i < this.input.length && /[a-zA-Z]/.test(this.input[i])) {
+    let tagName = "";
+
+    while (i < this.input.length && /[a-zA-Z0-9!]/.test(this.input[i])) {
       tagName += this.input[i];
       i++;
     }
 
-    this.position = i;
+    // DÜZELTME 1: Void tag değilse null döndür (regular tag'tir)
+    if (!this.VOID_TAGS.includes(tagName.toLowerCase() as VoidTags)) {
+      return null;
+    }
+
+    // Burası void tag'lar için devam ediyor
+    this.position = i; // Position'ı güncelle
 
     // Skip whitespaces and find attributes and parse it
     this.skipWhitespace();
     const attributes = this.parseAttributes();
 
-    // Check for "/>" ending
-    const isVoidTag = this.VOID_TAGS.includes(tagName as VoidTags);
+    // Check for "/>" or ">" ending
     const hasSlashClosing = this.input.startsWith("/>", this.position);
 
-    if (isVoidTag || hasSlashClosing) {
-      // Move past whitespace before "/>"
-      if (hasSlashClosing) {
-        // Move past "/>"
-        this.position += 2;
-      } else {
-        // check for ">"
-        if (this.input[this.position] === ">") {
-          this.position += 1; // Move past ">"
-        }
-      }
-
-      return {
-        type: "tag",
-        name: tagName as KnownHTMLTags,
-        attributes: attributes,
-        children: [],
-      };
+    if (hasSlashClosing) {
+      // Move past "/>"
+      this.position += 2;
+    } else if (this.input[this.position] === ">") {
+      // Move past ">"
+      this.position += 1;
     } else {
+      // DÜZELTME 2: Void tag için ">" veya "/>" bulunamadı
       this.errors.push(
-        `Expected "/>" or ">" for self-closing tag <${tagName}> at position ${this.position}`
+        `Expected "/>" or ">" for void tag <${tagName}> at position ${this.position}`
       );
-      this.position += 1; // Move past ">"
+      this.position += 1;
       return null;
     }
+
+    return {
+      type: "tag",
+      name: tagName as KnownHTMLTags,
+      attributes: attributes,
+      children: [],
+    };
   }
 
   /**
@@ -290,12 +341,23 @@ class HTMLParser {
         break;
       }
 
+      const originalPosition = this.position;
       // child parse
-      const childNode = this.parseTag() || this.parseText();
+      let childNode: Node | null = null;
+      if (this.input[this.position] === "<") {
+        childNode = this.parseTag();
+      } else {
+        childNode = this.parseText();
+      }
+      
       if (childNode) {
         children.push(childNode);
       } else {
-        this.position++;
+        // If position didn't advance, we're stuck - advance to avoid infinite loop
+        if (this.position === originalPosition) {
+          this.position++;
+        }
+        // If position did advance but no node was created, continue parsing from new position
       }
     }
     // handle the closing tag
@@ -317,10 +379,10 @@ class HTMLParser {
   private parseOpeningTag(): HTMLTags | null {
     // take tag name
     let tagName = "";
-    let i = this.position + 1; //skip '<'
+    let i = this.position + 1; // Skip '<'
 
     // loop to get all tag name characters
-    while (i < this.input.length && /[a-zA-Z]/.test(this.input[i])) {
+    while (i < this.input.length && /[a-zA-Z0-9!]/.test(this.input[i])) {
       tagName += this.input[i];
       i++;
     }
