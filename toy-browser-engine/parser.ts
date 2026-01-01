@@ -80,7 +80,7 @@ class HTMLParser {
       return null;
     }
 
-    const regularTagNode = null; // Placeholder for regular tag parsing
+    const regularTagNode = this.parseRegularTag(); // Placeholder for regular tag parsing
     return regularTagNode;
   }
 
@@ -188,11 +188,8 @@ class HTMLParser {
         if (this.input[this.position] === "=") {
           this.position++; // Skip '='
         } else {
-          // Attribute without value
-          attributes.push({
-            name: attrName,
-            value: "true",
-          });
+          attributes.push({ name: attrName, value: "true" });
+          continue; // Move to next attribute
         }
       } else {
         return attributes;
@@ -202,10 +199,6 @@ class HTMLParser {
       this.skipWhitespace();
       const quoteChar = this.input[this.position];
       if (quoteChar === '"' || quoteChar === "'") {
-        attributes.push({
-          name: attrName,
-          value: attrValue,
-        });
         // Skip opening quote
         this.position++;
         // Read until closing quote
@@ -217,6 +210,11 @@ class HTMLParser {
           this.position++;
         }
         this.position++;
+        // Attribute without value
+        attributes.push({
+          name: attrName,
+          value: attrValue, 
+        });
       }
     }
 
@@ -272,6 +270,90 @@ class HTMLParser {
     }
   }
 
+  /**
+   * PARSE NORMAL TAGS
+   */
+
+  private parseRegularTag(): Node | null {
+    // parse the opening tag
+    const openingTag = this.parseOpeningTag();
+    if (!openingTag) {
+      this.errors.push(`Malformed opening tag at position ${this.position}`);
+      return null;
+    }
+
+    // parse children nodes
+    const children: Node[] = [];
+    while (this.position < this.input.length) {
+      // is this closing tag?
+      if (this.input.startsWith(`</${openingTag.name}>`, this.position)) {
+        break;
+      }
+
+      // child parse
+      const childNode = this.parseTag() || this.parseText();
+      if (childNode) {
+        children.push(childNode);
+      } else {
+        this.position++;
+      }
+    }
+    // handle the closing tag
+    if (this.input.startsWith(`</${openingTag.name}>`, this.position)) {
+      // skip closing tag
+      this.position += `</${openingTag.name}>`.length;
+    } else {
+      // there is no closing tag
+      this.warnings.push(`Unclosed tag: <${openingTag.name}>`);
+    }
+    return {
+      type: "tag",
+      name: openingTag.name,
+      attributes: openingTag.attributes,
+      children: children,
+    };
+  }
+
+  private parseOpeningTag(): HTMLTags | null {
+    // take tag name
+    let tagName = "";
+    let i = this.position + 1; //skip '<'
+
+    // loop to get all tag name characters
+    while (i < this.input.length && /[a-zA-Z]/.test(this.input[i])) {
+      tagName += this.input[i];
+      i++;
+    }
+
+    // check tag name is exist.
+    if (tagName === "") {
+      return null;
+    }
+
+    // move position to after tag name
+    this.position = i;
+    this.skipWhitespace();
+
+    // parse attributes
+    const attributes = this.parseAttributes();
+
+    // check for closing '>'
+    if (this.input[this.position] === ">") {
+      this.position++; // move past '>'
+    } else {
+      // error there is no closing '>'
+      this.errors.push(
+        `Expected '>' for opening tag <${tagName}> at position ${this.position}`
+      );
+      return null;
+    }
+    return {
+      type: "tag",
+      name: tagName as KnownHTMLTags,
+      attributes: attributes,
+      children: [],
+    };
+  }
   // UTILITY METHODS
 
   /**
