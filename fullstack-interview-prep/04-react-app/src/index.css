@@ -1,0 +1,108 @@
+/* Minimal styling. The point of this module is the component logic, not CSS —
+   but theming via data-theme + CSS custom properties is a clean, framework-free
+   pattern worth knowing. */
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #666;
+  --border: #e2e2e2;
+  --accent: #2c3e50;
+}
+[data-theme='dark'] {
+  --bg: #1a1a1a;
+  --fg: #f5f5f5;
+  --muted: #aaa;
+  --border: #333;
+  --accent: #4a90d9;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+.app {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+}
+.app__header {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.app__header nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.app__header nav a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.app__header nav a.active {
+  font-weight: 700;
+  text-decoration: underline;
+}
+.app__main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+.card2 {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.card2 button {
+  margin-right: 0.5rem;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.card {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.card__avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+.card__body {
+  display: flex;
+  flex-direction: column;
+}
+.card__body small,
+.error {
+  color: var(--muted);
+}
+.error {
+  color: #c0392b;
+}
+.fancy {
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.4rem;
+}
