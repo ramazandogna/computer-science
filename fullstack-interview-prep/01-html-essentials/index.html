@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  THE HEART OF THIS MODULE.
+  ----------------------------------------------------------------------------
+  You already write HTML daily, so this file does not teach you tags. It is an
+  annotated reference of the things a senior front-end engineer is still
+  expected to get RIGHT in an interview and in production: document semantics,
+  accessibility, the critical rendering path, and how the browser treats
+  <script>/<link>/<img> loading.
+
+  Read it top to bottom. Open it in a browser, then open DevTools → Elements
+  and Lighthouse. Every comment block answers a question an interviewer asks.
+  ============================================================================
+-->
+
+<!--
+  WHY `<!DOCTYPE html>`:
+  It is NOT a tag, version, or DTD reference. It is the single directive that
+  switches the browser into "standards mode". Omit it and you fall into
+  "quirks mode", where the box model and a pile of CSS bugs revert to 1990s
+  behavior. There is exactly one correct doctype in modern HTML — this one.
+-->
+
+<!--
+  `lang` is not decoration. Screen readers pick voice/pronunciation from it,
+  and search engines use it for language targeting. Always set it.
+-->
+<html lang="en">
+
+<head>
+  <!--
+    `charset` MUST be in the first 1024 bytes of the document, so it is the
+    first thing in <head>. UTF-8 is the only correct answer in 2025. If the
+    browser guesses the wrong encoding it has to re-parse, and it can only
+    guess from bytes it has already seen — hence "put it first".
+  -->
+  <meta charset="UTF-8" />
+
+  <!--
+    The responsive viewport meta. Without it, mobile browsers render at a
+    ~980px virtual width and scale down, so your media queries never fire.
+    `width=device-width` maps CSS pixels to device-independent pixels;
+    `initial-scale=1` disables the default zoom-out.
+    GOTCHA: never add `maximum-scale=1, user-scalable=no` — it blocks pinch
+    zoom and is an accessibility (WCAG) failure.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!--
+    INTERVIEW: "Where does <title> matter?" — it is the browser tab text, the
+    default bookmark name, the clickable headline in Google results, and the
+    first thing most screen readers announce on page load. SEO + a11y in one tag.
+  -->
+  <title>HTML Essentials — Senior Reference</title>
+
+  <!--
+    The meta description is not a ranking factor, but it is the snippet Google
+    shows under your title. Treat it as ad copy: ~150 chars, written for humans.
+  -->
+  <meta name="description" content="An annotated HTML reference covering semantics, accessibility, and the critical rendering path." />
+
+  <!--
+    Open Graph / Twitter cards: how links unfurl in Slack, iMessage, X, etc.
+    Interviewers at product companies expect you to know these exist.
+  -->
+  <meta property="og:title" content="HTML Essentials — Senior Reference" />
+  <meta property="og:description" content="Semantics, a11y, and the critical rendering path, annotated." />
+  <meta property="og:type" content="article" />
+
+  <!--
+    `canonical` tells search engines which URL is the source of truth when the
+    same content is reachable via multiple URLs (tracking params, http/https,
+    trailing slash). Prevents duplicate-content dilution.
+  -->
+  <link rel="canonical" href="https://example.com/html-essentials" />
+
+  <!--
+    ===== THE CRITICAL RENDERING PATH: how <link rel=stylesheet> blocks =====
+    CSS is "render-blocking": the browser will not paint until the CSSOM is
+    built, because painting with no styles then re-painting causes a flash of
+    unstyled content (FOUC). It is NOT parser-blocking — HTML parsing continues.
+    Keep critical CSS small; defer non-critical CSS (e.g. with media tricks or
+    a loader) so the first paint isn't held hostage by a 200 KB stylesheet.
+  -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!--
+    `preconnect` opens the TCP+TLS handshake to a third-party origin early, so
+    when you later fetch from it the connection is warm. Use sparingly — each
+    one costs a connection. `preload` fetches a specific asset (font, hero
+    image) at high priority. Both are CRP optimizations interviewers love.
+  -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!--
+    ===== SCRIPT LOADING: the single most-tested HTML perf question =====
+    A plain <script> in <head> is BOTH download- and PARSER-blocking: the
+    browser stops building the DOM, fetches, executes, then resumes. That's why
+    the old advice was "scripts at the end of <body>".
+
+    Modern answer:
+      - `defer`: download in parallel, execute AFTER the DOM is parsed, IN ORDER.
+                 This is the correct default for app code that touches the DOM.
+      - `async`: download in parallel, execute the MOMENT it arrives, order NOT
+                 guaranteed. Correct for independent third-party scripts
+                 (analytics) that don't depend on your DOM or each other.
+      - `type="module"`: deferred by default, runs in strict mode, has its own
+                 scope, supports import/export. This is how you ship ES modules.
+
+    Visual timeline (│ = HTML parsing, ▓ = script execution):
+      <script>          │││──fetch──▓▓▓│││        (parsing stalls)
+      <script defer>    │││││││││││││││││▓▓▓       (parses fully, then runs)
+      <script async>    │││──fetch──▓▓▓│││         (runs whenever it lands)
+  -->
+  <script defer src="app.js"></script>
+  <script async src="https://example-analytics.com/a.js"></script>
+</head>
+
+<!--
+  ============================ DOCUMENT SEMANTICS ============================
+  INTERVIEW: "Why semantic HTML instead of <div> soup?"
+  1. Accessibility: landmarks (<nav>, <main>, <header>) let screen-reader users
+     jump between regions. A <button> is focusable, clickable with Enter/Space,
+     and announced as a button for FREE. A <div onclick> is none of those.
+  2. SEO: search engines weight <h1>/<article>/<nav> structurally.
+  3. Maintainability: the markup documents intent.
+  Rule of thumb: reach for a <div>/<span> only when NO semantic element fits.
+-->
+<body>
+
+  <!--
+    Skip link: the first focusable element, visually hidden until focused.
+    Keyboard and screen-reader users press Tab once and can jump past the nav
+    straight to content. A classic, cheap a11y win interviewers check for.
+  -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- <header> is a landmark: site-level header / masthead. -->
+  <header>
+    <!--
+      <nav> marks primary navigation. `aria-label` distinguishes multiple navs
+      (primary vs footer) for assistive tech.
+    -->
+    <nav aria-label="Primary">
+      <ul>
+        <!-- A list of links IS a list — mark it up as one. SR announces "5 items". -->
+        <li><a href="#semantics">Semantics</a></li>
+        <li><a href="#forms">Forms</a></li>
+        <li><a href="#media">Media</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!--
+    <main> is the one landmark that must be UNIQUE per page. It is the primary
+    content. Screen readers offer "jump to main" — this is what they jump to.
+    The `id` is the skip-link target above. `tabindex="-1"` lets it receive
+    programmatic focus without being in the normal tab order.
+  -->
+  <main id="main" tabindex="-1">
+
+    <!--
+      Exactly ONE <h1> per page, describing the page. Heading levels must NOT
+      skip (h1 → h2 → h3, never h1 → h3): screen-reader users navigate by
+      heading outline, and a broken outline is like a broken table of contents.
+    -->
+    <h1>HTML Essentials</h1>
+
+    <section id="semantics" aria-labelledby="semantics-h">
+      <!--
+        `aria-labelledby` names this region using the visible heading's id, so
+        a screen reader announces "Semantics, region" — no duplicated label,
+        single source of truth.
+      -->
+      <h2 id="semantics-h">Semantic structure</h2>
+
+      <!--
+        <article> = a self-contained, independently distributable unit (a blog
+        post, a product card, a comment). If you could syndicate it in an RSS
+        feed and it would still make sense, it's an <article>.
+        <section> = a thematic grouping, usually with a heading.
+        GOTCHA: don't use <section> as a styling wrapper — that's what <div> is for.
+      -->
+      <article>
+        <h3>An article is self-contained</h3>
+        <p>If it would still make sense pulled out of this page, it's an article.</p>
+      </article>
+    </section>
+
+    <!-- ============================ FORMS ============================ -->
+    <section id="forms" aria-labelledby="forms-h">
+      <h2 id="forms-h">Forms done right</h2>
+
+      <!--
+        INTERVIEW: "Why does a <form> need a real submit button and method?"
+        Native form semantics give you for free: Enter-to-submit, the `submit`
+        event (one place to validate), browser autofill, and password-manager
+        integration. JS-only "forms" lose all of that.
+      -->
+      <form action="/subscribe" method="post" novalidate>
+        <!--
+          EVERY input needs an accessible name. The bulletproof way is a <label>
+          whose `for` matches the input `id`. Now clicking the label focuses the
+          input, and the SR announces the label when the field gains focus.
+          A `placeholder` is NOT a label — it disappears on input and fails a11y.
+        -->
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          aria-describedby="email-hint"
+        />
+        <!--
+          `aria-describedby` ties supplementary help text to the field. The SR
+          reads the label, then the hint. `type=email` gives mobile users the
+          @-keyboard and turns on built-in validation.
+        -->
+        <p id="email-hint">We'll only email you about releases.</p>
+
+        <!--
+          Inputs that aren't text still need correct `type`/`autocomplete`:
+          the browser fills them, mobile shows the right keyboard, and password
+          managers recognize them. These attributes are pure UX wins for $0.
+        -->
+        <label for="pw">Password</label>
+        <input id="pw" name="password" type="password" autocomplete="current-password" required />
+
+        <!-- A button inside a form defaults to type="submit". Be explicit anyway. -->
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <!-- ============================ MEDIA ============================ -->
+    <section id="media" aria-labelledby="media-h">
+      <h2 id="media-h">Responsive, accessible media</h2>
+
+      <!--
+        `alt` is mandatory and meaningful for content images. For DECORATIVE
+        images use alt="" (empty, not missing) so SRs skip them entirely.
+        `width`/`height` let the browser reserve space and avoid layout shift
+        (CLS — a Core Web Vital). `loading="lazy"` defers offscreen images.
+        `srcset`/`sizes` ship the right resolution per device — the browser
+        picks; you don't write media queries for it.
+      -->
+      <img
+        src="hero-800.jpg"
+        srcset="hero-400.jpg 400w, hero-800.jpg 800w, hero-1600.jpg 1600w"
+        sizes="(max-width: 600px) 100vw, 800px"
+        width="800"
+        height="450"
+        loading="lazy"
+        decoding="async"
+        alt="Diagram of the browser critical rendering path"
+      />
+    </section>
+
+    <!--
+      Interactive disclosure with ZERO JavaScript. <details>/<summary> is
+      keyboard-accessible and SR-friendly out of the box. Reach for native
+      elements before reinventing them in JS — fewer bugs, better a11y.
+    -->
+    <details>
+      <summary>What is "progressive enhancement"?</summary>
+      <p>
+        Build a baseline that works with HTML alone, then layer CSS and JS on
+        top. If the JS fails to load, the core experience still functions.
+      </p>
+    </details>
+
+  </main>
+
+  <!-- <footer> landmark: site-level footer (contentinfo). -->
+  <footer>
+    <p><small>Annotated reference. Read the comments — that's the lesson.</small></p>
+  </footer>
+
+</body>
+</html>
