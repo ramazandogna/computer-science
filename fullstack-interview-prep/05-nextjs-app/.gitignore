@@ -1,0 +1,7 @@
+# Next.js build output and caches — never commit these.
+# (The repo root .gitignore covers node_modules/ and dist/, but Next uses its
+#  own .next/ and out/ directories, so we ignore them here.)
+.next/
+out/
+.turbo/
+next-env.d.ts

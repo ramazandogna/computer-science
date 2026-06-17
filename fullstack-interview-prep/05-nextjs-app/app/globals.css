@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #1a1a1a;
+}
+.header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e2e2e2;
+}
+.header nav {
+  display: flex;
+  gap: 1rem;
+}
+.header a {
+  color: #2c3e50;
+  text-decoration: none;
+}
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.card {
+  display: block;
+  padding: 0.75rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+.card:hover {
+  border-color: #888;
+}
+.muted {
+  color: #666;
+}
+.error {
+  color: #c0392b;
+}
+input,
+button {
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+}
