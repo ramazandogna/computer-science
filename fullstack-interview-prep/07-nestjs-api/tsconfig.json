@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2022",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+
+    // THESE TWO LINES ARE LOAD-BEARING FOR NEST. Nest's dependency injection
+    // figures out WHAT to inject by reading the constructor parameter TYPES at
+    // runtime. TypeScript only emits that type metadata when these are on, and
+    // it only works because we `import 'reflect-metadata'` in main.ts. Turn
+    // either off and DI silently breaks ("Nest can't resolve dependencies").
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
