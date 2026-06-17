@@ -1,0 +1,43 @@
+# =============================================================================
+# docker-compose — run the API and Redis together with ONE command.
+# -----------------------------------------------------------------------------
+#   docker compose up --build
+# WHY compose: the app NEEDS Redis. Compose defines both services, puts them on
+# a shared network, and wires startup order so you don't hand-run two containers
+# and remember the right flags. This is how you stand up a multi-service dev env.
+# =============================================================================
+services:
+  api:
+    build: . # build the Dockerfile in this directory
+    ports:
+      - '3000:3000' # host:container — reach the API at localhost:3000
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # CRUCIAL: inside the compose network, Redis is reachable by its SERVICE
+      # NAME ("redis"), not localhost. localhost in a container is the container
+      # itself. This service-name DNS is the #1 docker-compose gotcha.
+      - REDIS_URL=redis://redis:6379
+      - CACHE_TTL_SECONDS=60
+    depends_on:
+      redis:
+        condition: service_healthy # don't start the API until Redis is ready
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379' # exposed so you can inspect it with redis-cli from the host
+    # A healthcheck so `depends_on: condition: service_healthy` actually works —
+    # otherwise "depends_on" only waits for the container to START, not be READY.
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    # Persist data across restarts. Comment out for a pure ephemeral cache.
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
