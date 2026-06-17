@@ -1,0 +1,20 @@
+{
+  "name": "javascript-core",
+  "version": "1.0.0",
+  "description": "Runnable, annotated deep-dives into the JS topics seniors are tested on.",
+  "//": "type:module makes every .js file an ES module so import/export and top-level await work without a build step.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "event-loop": "node src/01-event-loop.js",
+    "closures": "node src/02-closures-scope.js",
+    "this": "node src/03-this-binding.js",
+    "prototypes": "node src/04-prototypes-classes.js",
+    "async": "node src/05-async-patterns.js",
+    "types": "node src/06-types-coercion-equality.js",
+    "all": "node src/01-event-loop.js && node src/02-closures-scope.js && node src/03-this-binding.js && node src/04-prototypes-classes.js && node src/05-async-patterns.js && node src/06-types-coercion-equality.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
