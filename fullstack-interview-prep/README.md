@@ -115,6 +115,63 @@ These show up regardless of framework. Each links to where it's demonstrated.
 
 ---
 
+## Rapid-fire (30-second answers)
+
+Drill these out loud. If you can't give the short version, re-read the module.
+
+- **Event loop order?** Sync → drain ALL microtasks (promises) → ONE macrotask
+  (setTimeout) → repeat.
+- **`var` vs `let`?** Function vs block scope; `var` hoists to `undefined`,
+  `let` has a TDZ.
+- **`==` vs `===`?** Always `===` except the deliberate `x == null` check.
+- **`||` vs `??`?** `??` only falls through for null/undefined (keeps a valid 0).
+- **How is `this` set?** By call-site (new > bind > method > plain); arrows
+  capture lexically.
+- **Sequential vs parallel awaits?** Start promises first, then `Promise.all`.
+- **React re-render triggers?** Own state, parent render, or context value
+  change.
+- **`key` must be?** Stable + unique (never the array index).
+- **`useMemo`/`useCallback`/`memo`?** Cache value / cache fn identity / skip
+  re-render — perf hints, not correctness.
+- **React 19 headline?** Actions + `useActionState`/`useFormStatus`/
+  `useOptimistic`, `use()`, `ref` as a prop, the React Compiler.
+- **Server vs Client Component?** Server: async, fetches, ships no JS. Client:
+  `"use client"`, hooks/events/browser APIs.
+- **CSR/SSR/SSG/ISR/RSC?** Browser-renders / per-request HTML / build-time HTML /
+  build-time + revalidate / server components shipping minimal JS.
+- **Node single-thread → all cores?** `cluster` (process per core, shared state
+  in Redis); `worker_threads` for in-request CPU work.
+- **Graceful shutdown?** On SIGTERM: stop new connections, drain in-flight, close
+  resources, exit (with a timeout).
+- **Cache-aside?** Read: miss → load → populate w/ TTL. Write: mutate → invalidate
+  keys.
+- **Express vs Nest?** Wire-it-yourself vs DI + modules + decorators + built-in
+  guards/pipes/interceptors/filters.
+
+## Final readiness checklist
+
+You're interview-ready for a module when you can, **without looking**:
+
+- [ ] **02** Predict the output of a mixed sync/promise/setTimeout snippet, and
+  implement `debounce`.
+- [ ] **01** Explain `defer` vs `async` and refactor a `<div onclick>` into
+  accessible markup.
+- [ ] **03/04** Build a fetch → map → list screen with loading/error/empty
+  states and correct keys, in both Vue and React.
+- [ ] **04** Name every hook, its trap, and what React 19 added.
+- [ ] **05** Decide Server vs Client component per case and explain the Next 15
+  caching defaults.
+- [ ] **06** Draw the request path through the layers and explain clustering +
+  graceful shutdown + cache-aside.
+- [ ] **07** Explain DI and the guard/pipe/interceptor/filter lifecycle.
+
+Every module's code is runnable and was verified to build/run (the JS files print
+the documented output; the Vue/React/Next apps build; the Express and Nest APIs
+boot and pass their endpoint checks). If something doesn't run for you, that's a
+bug to fix — which is itself good practice.
+
+---
+
 ## License
 
 ISC — same as the rest of this `computer-science` repo. Built as a personal
