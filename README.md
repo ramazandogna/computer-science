@@ -1,760 +1,869 @@
-# 🔥 Sıfırdan Elle — Mülakat Hazırlık Backlog'u
+# Hands-On Build Drills — An AI-Free Engineering Log
 
-> AI'sız yazılacak ~100 küçük build. Her biri elimi ısıtır, bir açığımı kapatır,
-> ve CV'mdeki gerçek bir teknolojiye bağlanır. Amaç hız değil — **"ben yazdım,
-> ben savunurum" diyebilmek.** Uzun sürecek. Bitince hepsini yaptım diyeceğim.
+A curated backlog of ~100 small builds for full-stack engineers who want to
+rebuild hands-on fluency and sharpen the reasoning behind everyday tools. Every
+task is written by hand, without AI code generation. The goal is not speed but
+understanding: to write confidently from a blank file and explain the *why*
+behind each decision.
 
----
-
-## Nasıl kullanılır
-
-- **Tek kural:** Kod AI'sız yazılır. Dokümana, MDN'e, resmi guide'lara bakmak **serbest**.
-  Copilot / Cursor / ChatGPT'ye kod yazdırmak, "şunu yaz" demek **yasak.** Takıldığında
-  önce kendin dener, sonra dokümana bakarsın. Bu, "neden"i öğrenmenin tek yolu.
-- **El ısıtma** (günlük pazarlıksız iş) habit tracker'da. Bu README onun *malzemesi:*
-  her gün buradan bir madde çekersin.
-- **İşaretleme = commit.** Bir maddeyi bitirdiğinde `[ ]` → `[x]` yap, dört alanı doldur,
-  commit et. Her commit GitHub'ını yeşilletir. Yavaş yeşiller ama **gerçek** yeşiller.
-- **Sırayı boz ama atlama.** Numaralar zorluk sırası; canın bir üst fazdan bir şey
-  isterse çek, ama temeli boşluk bırakma. Faz 1–3 diğer her şeyin altını tutar.
-- **Dört alan neden var:**
-  - *Nasıl yaptım* → gerçekten sen mi yazdın, çözümü kelimelerle kurabiliyor musun.
-  - *Ne öğrendim* → mülakatta anlatacağın cümle burada doğar.
-  - *Neyi yapamadım* → **en değerlisi.** Bir sonraki günün müfredatı budur. Boş bırakma,
-    dürüst yaz; "hiç" yazıyorsan ya çok kolaydı ya kendini kandırıyorsun.
-
-**İlerleme:** `0 / 100 tamamlandı`
+The list is ordered by difficulty. It starts with language and platform
+fundamentals and climbs toward the harder pieces of a modern stack — queues,
+real-time sync, cryptography, and system design.
 
 ---
 
-## Yol haritası (kuşbakışı)
+## Rules
+
+1. **Write the code yourself.** Reading docs, MDN, and official guides is
+   encouraged. Having an AI assistant generate code — or asking it to "write
+   this" — is not allowed. Struggle first, then read the docs. That struggle is
+   where the "why" is learned.
+2. **Checking a box is a commit.** When a task is done, change `[ ]` to `[x]`,
+   fill the four fields, and commit. Slow green is real green.
+3. **Follow the order loosely, but don't skip foundations.** The numbers reflect
+   difficulty. Phases 1–3 hold up everything after them.
+4. **Fill the four fields honestly.**
+   - **How I did it** — proof the work was actually built, and that the solution
+     can be described in words.
+   - **What I learned** — the one sentence worth reusing in an interview.
+   - **What I couldn't do** — the most valuable field. It defines the next task.
+     Never leave it empty; if it reads "nothing," the task was either trivial or
+     not finished.
+
+### Daily rhythm and mindset
+
+- **A day counts if code was written by hand — even a little.** The floor is low
+  on purpose. Showing up beats volume.
+- **Progress over perfection.** Grade the day by whether you wrote something
+  yourself, not by how much got done.
+- **Anchor the habit to an existing daily routine.** Momentum is more reliable
+  than motivation.
+- **If a task felt easy and "What I couldn't do" is empty, go deeper.** Ease is
+  usually a sign the hard part was skipped.
+- **A task is finished when it can be rebuilt from a blank file and every
+  decision explained out loud.**
+
+**Progress:** `0 / 103 complete`
+
+---
+
+## Roadmap
 
 ```
-Faz 1  JS + TS temeli ......... "neden" kası, dil ikinci doğa olsun
-Faz 2  HTML / a11y ............ seniorların hâlâ soğuk bilmesi beklenen kısım
-Faz 3  React sıfırdan ......... router dahil, en çok zorlandığım yer
-Faz 4  Vue .................... CV'de var, savunulmalı
-Faz 5  Next.js / rendering .... server model, caching, i18n, SEO
-Faz 6  Node / Express ........ katmanlama, cluster, graceful shutdown
-Faz 7  NestJS ................ DI, guard/pipe/interceptor
-Faz 8  Veritabanı ............ SQL, Prisma, Drizzle, Mongo, FTS
-Faz 9  Redis + BullMQ ........ EN BÜYÜK AÇIĞIM — Scrape & Compare'in kalbi
-Faz 10 Realtime + offline .... POS projemin kalbi, Socket.IO, sync, conflict
-Faz 11 Auth + kripto ......... JWT, session, Ed25519 lisanslama
-Faz 12 Scraping .............. Playwright, backoff, etik çerçeve
-Faz 13 Media / SEO / i18n .... R2, ThumbHash, teknik SEO
-Faz 14 Test .................. Vitest, RTL, Jest, e2e
-Faz 15 Docker / deploy ....... multi-stage, compose, secret
-Faz 16 CV savunması + system design .... mülakatı kazandıran kısım
+Phase 1   JavaScript + TypeScript fundamentals ... the "why" muscle
+Phase 2   HTML / accessibility ................... the platform basics
+Phase 3   React from scratch ..................... hooks, routing, patterns
+Phase 4   Vue .................................... a second mental model
+Phase 5   Next.js / rendering .................... server model, caching, SEO
+Phase 6   Node / Express ......................... layering, cluster, shutdown
+Phase 7   NestJS ................................. DI, guards, pipes, filters
+Phase 8   Databases .............................. SQL, ORMs, FTS
+Phase 9   Redis + BullMQ ......................... caching and background jobs
+Phase 10  Real-time + offline-first .............. sockets, sync, conflicts
+Phase 11  Auth + cryptography .................... sessions, JWT, signatures
+Phase 12  Scraping ............................... automation, backoff, ethics
+Phase 13  Media / SEO / i18n ..................... delivery and discoverability
+Phase 14  Testing ................................ unit, integration, e2e
+Phase 15  Docker / deploy ........................ images, compose, config
+Phase 16  System design and synthesis ............ tie it all together
 ```
 
 ---
 
-## Faz 1 — JavaScript + TypeScript temeli
+## Phase 1 — JavaScript + TypeScript fundamentals
 
-- [ ] **1. `debounce` ve `throttle`'ı sıfırdan yaz**
-  - **Açıklama:** İkisini boş dosyada, kütüphanesiz yaz. Farkı bir cümleyle söyle. Arama kutusunda test et.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **1. Write `debounce` and `throttle` from scratch**
+  - **Description:** Implement both in a blank file, no libraries. State the
+    difference in one sentence and test them on a search input.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **2. `deepClone` ve `deepEqual` yaz**
-  - **Açıklama:** İç içe obje/array'i klonla ve karşılaştır. `structuredClone`'un ne yaptığını, döngüsel referansın neden problem olduğunu gör.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **2. Write `deepClone` and `deepEqual`**
+  - **Description:** Clone and compare nested objects/arrays. Understand what
+    `structuredClone` does and why circular references are a problem.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **3. Sıralı vs paralel `await` — ölç**
-  - **Açıklama:** 3 sahte async iş kur. Önce sırayla `await`, sonra `Promise.all`. Süreyi `console.time` ile kıyasla. Farkı anlat.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **3. Sequential vs parallel `await` — measure it**
+  - **Description:** Set up three fake async tasks. Run them with sequential
+    `await`, then with `Promise.all`. Compare timings and explain the difference.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **4. Mini `Promise` yaz**
-  - **Açıklama:** `then` zincirlenebilen basit bir promise sınıfı. `resolve/reject`, pending/fulfilled state. Neden microtask kuyruğunda çalıştığını anla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **4. Build a mini `Promise`**
+  - **Description:** A small promise class supporting chained `then`,
+    `resolve`/`reject`, and pending/fulfilled state. Understand why it runs on
+    the microtask queue.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **5. Event loop çıktı tahmini**
-  - **Açıklama:** sync + `Promise` + `setTimeout` karışık bir snippet yaz. Çalıştırmadan çıktı sırasını tahmin et, sonra çalıştır, tut/tutmadı yaz.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **5. Predict event-loop output**
+  - **Description:** Write a snippet mixing sync code, `Promise`, and
+    `setTimeout`. Predict the output order before running, then verify.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **6. Closure ile counter factory + module pattern**
-  - **Açıklama:** Dışarıdan erişilemeyen private state tutan bir sayaç üretici. Closure'ın neyi kapattığını kelimelerle söyle.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **6. Counter factory with closures + the module pattern**
+  - **Description:** A counter factory holding private state unreachable from
+    outside. Explain in words what the closure captures.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **7. `this` + kendi `bind`'ini yaz**
-  - **Açıklama:** `Function.prototype.myBind`. call-site kuralını (new > bind > method > plain) örneklerle göster. Arrow neden farklı?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **7. `this` binding + write your own `bind`**
+  - **Description:** Implement `Function.prototype.myBind`. Show the call-site
+    rule (new > bind > method > plain) with examples. Explain why arrows differ.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **8. Prototype zinciri — class'sız kalıtım**
-  - **Açıklama:** `Object.create` ile inheritance kur. `class`'ın altında ne olduğunu gör. `__proto__` vs `prototype`.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **8. Prototype chain — inheritance without `class`**
+  - **Description:** Build inheritance with `Object.create`. See what `class`
+    hides. Distinguish `__proto__` from `prototype`.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **9. `curry`, `compose`, `pipe` yaz**
-  - **Açıklama:** Üçünü de elle. Fonksiyonel kompozisyonun okunabilirliğini bir örnekle göster.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **9. Write `curry`, `compose`, and `pipe`**
+  - **Description:** Implement all three by hand and demonstrate readable
+    functional composition with one example.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **10. TS: tip-güvenli `Result<T, E>`**
-  - **Açıklama:** try/catch yerine `{ ok: true, value } | { ok: false, error }` dönen fonksiyonlar. Generic kullan.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **10. TS: a type-safe `Result<T, E>`**
+  - **Description:** Functions returning `{ ok: true, value } | { ok: false,
+    error }` instead of throwing. Use generics.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **11. TS: discriminated union + exhaustive switch**
-  - **Açıklama:** Bir `Shape` union'ı (circle/square/…), alan hesabı, `never` ile eksik case'i derleme hatasına çevir.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** A `Shape` union (circle/square/…), an area calculation, and
+    `never` to turn a missing case into a compile error.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **12. TS: utility type'ları elle yeniden yaz**
-  - **Açıklama:** `Partial`, `Pick`, `Omit`, `Readonly`'yi mapped type ile kendin yaz. TS'in tip sistemini gerçekten anla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
----
-
-## Faz 2 — HTML / erişilebilirlik / platform
-
-- [ ] **13. `<div onclick>`'i erişilebilir markup'a refactor et**
-  - **Açıklama:** Tıklanabilir div'i `<button>`'a çevir, klavye + focus + `aria`. Neden semantic önemli, ekran okuyucu ne der?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **14. `defer` vs `async` — kur ve anlat**
-  - **Açıklama:** İki script tag'i, farklı yükleme davranışı. Parse-blocking, sıra garantisi. Hangisi ne zaman?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **15. Erişilebilir modal (vanilla)**
-  - **Açıklama:** Focus trap, `Esc` ile kapat, arkaya `aria-hidden`, açılınca focus içeri. Framework yok.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **12. TS: reimplement utility types by hand**
+  - **Description:** Rewrite `Partial`, `Pick`, `Omit`, and `Readonly` with
+    mapped types to understand the type system.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 3 — React sıfırdan (en çok zorlandığım yer)
+## Phase 2 — HTML / accessibility / platform
 
-- [ ] **16. `npm create vite` + tek component render**
-  - **Açıklama:** Sıfırdan React projesi ayağa kaldır. Basit bir "Hello" component'i. Build çalışsın.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **13. Refactor a `<div onclick>` into accessible markup**
+  - **Description:** Convert a clickable div into a `<button>` with keyboard,
+    focus, and `aria` support. Explain why semantics matter for screen readers.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **17. `useState` sayaç + türev state tuzağı**
-  - **Açıklama:** Sayaç yap. Sonra "iki katı"nı ayrı state'te tutma hatasını yap ve düzelt — türev değer render'da hesaplanır.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **14. `defer` vs `async` — build and explain**
+  - **Description:** Two script tags with different loading behavior. Cover
+    parse-blocking and order guarantees. When to use which?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **18. react-router: 2 route + `Link`**
-  - **Açıklama:** `/` ve `/about`, aralarında gezinme. Router'ı elle kur, dokümana bak, AI yok.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **15. Accessible modal (vanilla)**
+  - **Description:** Focus trap, close on `Esc`, `aria-hidden` on the background,
+    focus moved inside on open. No framework.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **19. react-router: nested route + layout + `Outlet`**
-  - **Açıklama:** Ortak layout (navbar) + iç sayfalar. `Outlet` mantığını anla. "Router'da zorlanırım" korkusunu burada gömüyoruz.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+---
+
+## Phase 3 — React from scratch
+
+- [ ] **16. `npm create vite` + render one component**
+  - **Description:** Stand up a React project from zero. A simple "Hello"
+    component. Make the build pass.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
+
+- [ ] **17. `useState` counter + the derived-state trap**
+  - **Description:** Build a counter, then make the mistake of storing its
+    "double" in separate state and fix it — derived values are computed on render.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
+
+- [ ] **18. react-router: two routes + `Link`**
+  - **Description:** `/` and `/about` with navigation between them. Wire the
+    router by hand from the docs.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
+
+- [ ] **19. react-router: nested routes + layout + `Outlet`**
+  - **Description:** A shared layout (navbar) with inner pages. Understand how
+    `Outlet` works.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **20. react-router: dynamic param + `useParams`**
-  - **Açıklama:** `/user/:id`, param oku, o id ile içerik göster. 404 route'u da ekle.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** `/user/:id`, read the param, render content for that id.
+    Add a 404 route.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **21. Route değişince veri çek**
-  - **Açıklama:** Bir detay sayfası param'a göre `fetch` etsin. Param değişince yeniden çeksin. Basit CSS, sade tut.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **21. Fetch data on route change**
+  - **Description:** A detail page that fetches by param and refetches when the
+    param changes. Keep the CSS minimal.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **22. Controlled form + validation**
-  - **Açıklama:** İsim/e-posta, state'e bağlı input, submit'te doğrulama, hata mesajı göster. `<form>` semantiği doğru olsun.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Name/email inputs bound to state, validation on submit,
+    visible error messages. Correct `<form>` semantics.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **23. Fetch → loading / error / empty → liste**
-  - **Açıklama:** Gerçek bir public API. Dört state'i de doğru yönet, `key` array index OLMASIN. **Frontend turunun bel kemiği.**
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **23. Fetch → loading / error / empty → list**
+  - **Description:** A real public API. Handle all four states correctly, and do
+    not use the array index as `key`. The backbone of the front-end live round.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **24. `useEffect` cleanup + race condition**
-  - **Açıklama:** Hızlı arama yaparken eski isteğin yeniyi ezmesini `AbortController` ile çöz. Cleanup neden var?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** While typing in a search box, stop a stale request from
+    overwriting a newer one using `AbortController`. Why does cleanup exist?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **25. Custom hook: `useFetch`**
-  - **Açıklama:** 23'teki mantığı yeniden kullanılabilir hook'a çıkar. `{ data, loading, error }` dönsün.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Extract the logic from task 23 into a reusable hook
+    returning `{ data, loading, error }`.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **26. Custom hook: `useDebouncedValue` + autocomplete**
-  - **Açıklama:** Kullanıcı yazarken debounce'lu arama. 1 numaradaki debounce'u hook'a bağla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Debounced search as the user types. Wire the debounce from
+    task 1 into a hook.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **27. `useMemo` / `useCallback` / `memo` — gerçekten gerekli case**
-  - **Açıklama:** Yavaş bir hesap kur, `useMemo` ile hızlandır. Çocuğu `memo`'la. Bunların perf ipucu olduğunu, correctness olmadığını göster.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **27. `useMemo` / `useCallback` / `memo` — a case that needs them**
+  - **Description:** Build a slow computation, speed it up with `useMemo`, and
+    `memo` a child. Show they are performance hints, not correctness fixes.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **28. `useReducer` ile CRUD state**
-  - **Açıklama:** Ekle/sil/güncelle aksiyonlarını reducer'da yönet. Ne zaman `useState` yerine `useReducer`?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **28. CRUD state with `useReducer`**
+  - **Description:** Manage add/remove/update actions in a reducer. When is
+    `useReducer` a better fit than `useState`?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **29. Context ile tema/auth — prop drilling'i çöz**
-  - **Açıklama:** Derin bir ağaca context ile veri geçir. Context'in ne zaman re-render tetiklediğini gör.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **29. Context for theme/auth — solve prop drilling**
+  - **Description:** Pass data through a deep tree via context. Observe when a
+    context value change triggers re-renders.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **30. Infinite scroll (IntersectionObserver)**
-  - **Açıklama:** Sona gelince yeni sayfa çek. Sentinel element + observer. C2C marketplace'inde işine yarar.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Fetch the next page when the user reaches the bottom, using
+    a sentinel element and an observer.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **31. Star rating component (kontrollü)**
-  - **Açıklama:** Tıkla/hover ile puan. Klavye ile de çalışsın. Klasik canlı-kodlama sorusu.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **31. Star rating component (controlled)**
+  - **Description:** Rate on click/hover, keyboard-operable. A classic live-coding
+    prompt.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **32. Tabs (aria + klavye)**
-  - **Açıklama:** Sekmeler, ok tuşlarıyla gezinme, `role="tab"`. Erişilebilir tab paneli.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **32. Tabs (aria + keyboard)**
+  - **Description:** Tabbed panels with arrow-key navigation and `role="tab"`.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **33. React 19: `useActionState` + form action**
-  - **Açıklama:** Yeni action API ile form submit + pending state. React 19 headline'ını elinle gör.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Handle form submit and pending state with the new action API.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **34. React 19: `useOptimistic`**
-  - **Açıklama:** Sunucu cevabı gelmeden UI'ı iyimser güncelle, hata olursa geri al. Bir "like" butonunda dene.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Update the UI optimistically before the server responds and
+    roll back on error. Try it on a "like" button.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **35. React 19: `use()` + Suspense**
-  - **Açıklama:** Bir promise'i `use()` ile oku, `<Suspense>` ile fallback göster.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Read a promise with `use()` and show a fallback with
+    `<Suspense>`.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 4 — Vue (CV'de var, savunulmalı)
+## Phase 4 — Vue
 
 - [ ] **36. Vue 3 setup + `ref` vs `reactive`**
-  - **Açıklama:** Composition API ile kur. İkisinin farkını örnekle. CV'ndeki "Reactive"i gerçekten anla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Set up with the Composition API. Show the difference between
+    the two with examples.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **37. `computed` + `watch`**
-  - **Açıklama:** Türev değer için computed, yan etki için watch. React'in `useMemo`/`useEffect` karşılığı nasıl kuruluyor?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** `computed` for derived values, `watch` for side effects. How
+    do the React `useMemo`/`useEffect` equivalents map over?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **38. Vue'da fetch → liste (23'ün karşılığı)**
-  - **Açıklama:** Aynı loading/error/empty ekranını Vue'da kur. İki mental modeli karşılaştırabil.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **38. Fetch → list in Vue (the equivalent of task 23)**
+  - **Description:** Build the same loading/error/empty screen in Vue. Be able to
+    compare the two mental models.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **39. Pinia store**
-  - **Açıklama:** Global state. Neden Vuex yerine Pinia? Mülakatta bu trade-off'u sorabilirler (CV'nde ikisi de var).
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Global state with Pinia. Why Pinia over Vuex? Be ready to
+    argue the trade-off.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **40. Composable yaz (`useFetch` Vue versiyonu)**
-  - **Açıklama:** 25'teki hook'un Vue karşılığı. Composable = React custom hook.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **40. Write a composable (`useFetch`, Vue version)**
+  - **Description:** The Vue counterpart of the hook in task 25. A composable is
+    Vue's custom hook.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 5 — Next.js / rendering modelleri
+## Phase 5 — Next.js / rendering models
 
 - [ ] **41. Server vs Client Component**
-  - **Açıklama:** Biri sunucuda fetch etsin (JS göndermesin), diğeri `"use client"` ile hook kullansın. Sınırı elinle çiz.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** One fetches on the server (ships no JS), the other uses
+    hooks with `"use client"`. Draw the boundary yourself.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **42. Server Action ile form**
-  - **Açıklama:** API route yazmadan sunucuda mutasyon. Progressive enhancement mantığını gör.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **42. Form with a Server Action**
+  - **Description:** Mutate on the server without writing an API route.
+    Understand progressive enhancement.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **43. Caching: `force-cache` vs `no-store` vs `revalidate`**
-  - **Açıklama:** Üç fetch, üç davranış. Next 15 default'unu anla. Mülakatın favori tuzağı.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Three fetches, three behaviors. Understand the Next 15
+    default — a favorite interview trap.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **44. Streaming + Suspense boundary**
-  - **Açıklama:** Yavaş bölümü `<Suspense>` ile ayır, sayfa parça parça gelsin. TTFB vs LCP.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Isolate a slow section with `<Suspense>` so the page streams
+    in parts. TTFB vs LCP.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **45. SSG: dynamic route + `generateStaticParams`**
-  - **Açıklama:** Build-time'da statik sayfalar üret. C2C marketplace'inin ürün sayfaları buna oturur.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Generate static pages at build time.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **46. ISR: `revalidate` senaryosu**
-  - **Açıklama:** Statik ama süreli tazelenen sayfa. SSG + tazeleme farkını anlat.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **46. ISR: a `revalidate` scenario**
+  - **Description:** A static page that refreshes on an interval. Explain the
+    difference from plain SSG.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **47. i18n routing**
-  - **Açıklama:** `/tr` `/en` `/ja` route stratejisi. C2C projendeki i18n'i gerçekten kur.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** A `/tr` `/en` `/ja` routing strategy with localized content.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **48. Teknik SEO: metadata API + sitemap**
-  - **Açıklama:** Dinamik `<title>`/OG, `sitemap.xml`, `robots`. 2M ziyaretçi SEO deneyimini teknik tarafa bağla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **48. Technical SEO: metadata API + sitemap**
+  - **Description:** Dynamic `<title>`/OG tags, `sitemap.xml`, `robots`. Connect
+    it to front-end performance.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 6 — Node / Express API
+## Phase 6 — Node / Express API
 
-- [ ] **49. Sıfır bağımlılık HTTP server**
-  - **Açıklama:** Sadece `http` modülüyle route'lu bir server. Express'in altında ne var, gör.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **49. Zero-dependency HTTP server**
+  - **Description:** A routed server using only the `http` module. See what
+    Express sits on top of.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **50. Express: controller / service / repository katmanları**
-  - **Açıklama:** Bir kaynağı 3 katmana böl. İş mantığı controller'da olmasın. İstek yolunu çizebil.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **50. Express: controller / service / repository layers**
+  - **Description:** Split one resource across three layers. Keep business logic
+    out of the controller. Be able to trace the request path.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **51. Edge validation (zod) + error contract**
-  - **Açıklama:** Gelen body'yi kenarda doğrula, tutarlı hata formatı dön. Kötü input asla içeri girmesin.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **51. Edge validation (zod) + an error contract**
+  - **Description:** Validate the incoming body at the edge and return a
+    consistent error shape. Bad input never reaches the core.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **52. Async error handling wrapper**
-  - **Açıklama:** Her handler'a try/catch yazmadan hataları merkezi middleware'e taşı.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **52. Async error-handling wrapper**
+  - **Description:** Route errors to a central middleware without try/catch in
+    every handler.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **53. Graceful shutdown (SIGTERM)**
-  - **Açıklama:** Yeni bağlantıyı kes, devam edeni bitir, kaynakları kapat, timeout'la çık. Neden `process.exit()` yetmez?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Stop new connections, drain in-flight ones, close resources,
+    exit with a timeout. Why isn't `process.exit()` enough?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **54. Cluster ile çok çekirdek**
-  - **Açıklama:** Node tek-thread'i çekirdek başına process'e böl. Paylaşılan state neden Redis'e gider? (Faz 9'a köprü.)
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **54. Cluster across cores**
+  - **Description:** Split Node's single thread into one process per core. Why
+    does shared state have to move to Redis?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **55. Rate limiter middleware (elle, token bucket)**
-  - **Açıklama:** Kütüphanesiz IP başına limit. Sonra Redis'li versiyonuyla (72) kıyasla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **55. Rate limiter middleware (by hand, token bucket)**
+  - **Description:** Per-IP limiting with no library. Later, compare it to the
+    Redis version (task 72).
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **56. Fastify ile aynı API**
-  - **Açıklama:** POS projendeki Fastify seçimini gerçekten anla. Express'ten farkı, neden daha hızlı iddiası?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **56. The same API in Fastify**
+  - **Description:** Understand what Fastify changes versus Express, and the basis
+    for its speed claims.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 7 — NestJS
+## Phase 7 — NestJS
 
 - [ ] **57. Module + provider + DI**
-  - **Açıklama:** Bir service'i controller'a inject et. Dependency injection'ı elinle gör; Express'te elle yaptığını Nest bedava verir.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Inject a service into a controller. See dependency injection
+    firsthand — what you wired by hand in Express, Nest gives for free.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **58. DTO + `ValidationPipe`**
-  - **Açıklama:** class-validator ile gelen veriyi doğrula. 51'deki manuel validation'ın Nest karşılığı.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Validate incoming data with class-validator. The Nest
+    equivalent of the manual validation in task 51.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **59. Guard (auth)**
-  - **Açıklama:** Route'u koruyan bir guard. İstek lifecycle'ında nereye oturur?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** A guard that protects a route. Where does it sit in the
+    request lifecycle?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **60. Interceptor**
-  - **Açıklama:** Yanıtı sarmalayan / süreyi loglayan interceptor. Guard/pipe/interceptor/filter sırasını anlat.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** An interceptor that wraps the response and logs duration.
+    Explain the guard/pipe/interceptor/filter order.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **61. Exception filter**
-  - **Açıklama:** Merkezi hata yakalama + tutarlı format. Scrape & Compare NestJS mimarisini savunabil.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Central error handling with a consistent format.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 8 — Veritabanı
+## Phase 8 — Databases
 
-- [ ] **62. Ham SQL: join + index, `EXPLAIN` oku**
-  - **Açıklama:** İki tabloyu join'le, index'siz ve index'li plan farkını `EXPLAIN` ile gör.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **62. Raw SQL: join + index, read `EXPLAIN`**
+  - **Description:** Join two tables and compare the plan with and without an
+    index using `EXPLAIN`.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **63. N+1 problemini yarat ve çöz**
-  - **Açıklama:** Döngüde sorgu atarak N+1 üret, sonra join/eager load ile çöz. Mülakatın klasik ORM sorusu.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **63. Create and fix an N+1 problem**
+  - **Description:** Produce N+1 by querying in a loop, then fix it with a
+    join/eager load. A classic ORM interview question.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **64. Prisma: schema + migration + relation**
-  - **Açıklama:** İlişkili iki model, migration çalıştır, ilişkili sorgu yaz. C2C projendeki Prisma'yı elinle kur.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **64. Prisma: schema + migration + relations**
+  - **Description:** Two related models, run a migration, write a relational query.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **65. Drizzle: aynı modeli SQLite'ta kur**
-  - **Açıklama:** POS projendeki Drizzle+SQLite. Prisma ile farkı, neden offline için SQLite?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **65. Drizzle: the same model on SQLite**
+  - **Description:** Rebuild it with Drizzle + SQLite. How does it differ from
+    Prisma, and why is SQLite a good fit for offline?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **66. Transaction + rollback**
-  - **Açıklama:** İki yazma işlemini atomik yap; ortada hata olunca geri al. Neden gerekli, bir örnekle.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Make two writes atomic; roll back on a mid-way failure.
+    Explain why it's needed with an example.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **67. Postgres full-text search**
-  - **Açıklama:** `tsvector`/`tsquery` ile arama. C2C marketplace'inin FTS'ini gerçekten kur, `LIKE`'tan farkını anlat.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Search with `tsvector`/`tsquery`. Explain how it differs from
+    `LIKE`.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **68. MongoDB: modelle + aggregation**
-  - **Açıklama:** Schema-less bir koleksiyon, `$group`/`$match` ile aggregation. CV'ndeki MongoDB'yi savunulabilir yap.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **68. MongoDB: model + aggregation**
+  - **Description:** A schema-less collection with a `$group`/`$match` aggregation.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **69. Connection pool — neden önemli**
-  - **Açıklama:** Havuzu küçük tut, çok istek at, tükenmeyi gözlemle. Her istekte yeni bağlantı neden kötü?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **69. Connection pool — why it matters**
+  - **Description:** Keep the pool small, send many requests, watch it exhaust.
+    Why is a new connection per request bad?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 9 — Redis + BullMQ (EN BÜYÜK AÇIĞIM)
+## Phase 9 — Redis + BullMQ
 
-> Scrape & Compare'in kalbi buydu ve kararları AI verdi. Bu fazı bitirince
-> "neden BullMQ" sorusuna gerçekten kendi cümlelerimle cevap verebileceğim.
+- [ ] **70. Redis basics**
+  - **Description:** Run Redis locally. `GET/SET/TTL/INCR/EXPIRE`. What is Redis,
+    why in-memory, and when is it the right tool?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **70. Redis temel komutlar**
-  - **Açıklama:** Redis'i local çalıştır. `GET/SET/TTL/INCR/EXPIRE`. Redis nedir, neden in-memory, ne zaman kullanılır?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **71. Cache-aside by hand**
+  - **Description:** Read: miss → load from DB → write to Redis with a TTL.
+    Write: mutate → invalidate the key. Implement the pattern.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **71. Cache-aside elle**
-  - **Açıklama:** Okuma: miss → DB'den çek → TTL ile Redis'e yaz. Yazma: değiştir → key'i invalidate et. Örüntüyü kur.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **72. Redis ile rate limit**
-  - **Açıklama:** `INCR` + `EXPIRE` ile dağıtık limit. 55'teki in-memory versiyondan farkı: neden cluster'da Redis şart?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **72. Rate limiting with Redis**
+  - **Description:** Distributed limiting with `INCR` + `EXPIRE`. Why is Redis
+    required once you run behind a cluster (vs. task 55)?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **73. BullMQ: producer + worker**
-  - **Açıklama:** Bir job kuyruğa at, worker çeksin. En basit haliyle. Kuyruğun ne işe yaradığını elinle gör.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Push a job to a queue and have a worker consume it. The
+    simplest possible setup. See what a queue is for.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **74. BullMQ: retry + backoff + failed handling**
-  - **Açıklama:** Bilerek çöken bir job, otomatik retry, artan backoff, `failed` event. Scraping'in dayanıklılığı burada.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** A job that fails on purpose, automatic retries, increasing
+    backoff, and a `failed` event.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **75. BullMQ: concurrency + rate limit + idempotency**
-  - **Açıklama:** Aynı anda N job, dış API'ye limit, aynı job iki kez işlenirse ne olur? Idempotency key ile koru.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** N jobs at once, a limit toward an external API, and
+    protection against double processing via an idempotency key.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **76. "Neden HTTP içinde değil kuyrukta?" — savunma yaz**
-  - **Açıklama:** Tek paragraf: uzun iş request'i bloklar, timeout olur, çökerse kaybolur → kuyruk hızlı döner, worker arkada çeker, retry devreye girer. Ezberleme, kendi cümlenle yaz.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **76. Write the "why a queue, not inside the HTTP request?" argument**
+  - **Description:** One paragraph: a long task blocks the request, times out,
+    and is lost on crash → a queue returns fast, a worker processes in the
+    background, and retries kick in. Write it in your own words, no memorizing.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 10 — Realtime + offline-first (POS projemin kalbi)
+## Phase 10 — Real-time + offline-first
 
 - [ ] **77. Socket.IO echo server + client**
-  - **Açıklama:** Mesaj gönder, sunucu geri yollasın. WebSocket vs HTTP farkını anla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Send a message and have the server echo it back. Understand
+    WebSocket vs HTTP.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **78. Rooms + broadcast**
-  - **Açıklama:** Bir odaya katıl, o odaya yayın yap. Çok istemcili senkron için temel.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Join a room and broadcast to it. The basis for multi-client
+    sync.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **79. Offline queue: kopunca buffer, gelince flush**
-  - **Açıklama:** Bağlantı kopunca işlemleri sırada tut, dönünce sunucuya boşalt. Offline-first'ün özü.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **79. Offline queue: buffer on disconnect, flush on reconnect**
+  - **Description:** Queue operations while disconnected and flush them to the
+    server on reconnect. The essence of offline-first.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **80. Conflict resolution: LWW vs versioning**
-  - **Açıklama:** İki istemci offline'ken aynı kaydı değiştirsin. Last-write-wins kur, sonra versiyon/timestamp ile daha iyisini. Mülakatta bu SORULUR.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Have two clients edit the same record while offline.
+    Implement last-write-wins, then a better version/timestamp scheme. This gets
+    asked in interviews.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **81. Electron: minimal main + renderer + IPC**
-  - **Açıklama:** Masaüstü pencere aç, main↔renderer IPC ile konuş. POS'un Electron tarafını anla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Open a desktop window and have main and renderer talk over
+    IPC.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **82. Offline-first sync mimarisini diyagramla + savun**
-  - **Açıklama:** POS'un tüm sync akışını kağıda çiz (local DB → queue → socket → server → broadcast). 2 dakikada anlat.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **82. Diagram and explain an offline-first sync architecture**
+  - **Description:** Draw the full sync flow (local DB → queue → socket → server
+    → broadcast) and explain it in two minutes.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 11 — Auth + kripto (POS lisanslama)
+## Phase 11 — Auth + cryptography
 
-- [ ] **83. JWT: sign + verify elle**
-  - **Açıklama:** header.payload.signature'ı kütüphaneyle üret ve doğrula. İmzanın ne koruduğunu (bütünlük, gizlilik değil) anla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **83. JWT: sign + verify by hand**
+  - **Description:** Produce and verify header.payload.signature with a library.
+    Understand what a signature protects (integrity, not secrecy).
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **84. Session vs JWT — ikisini de kur**
-  - **Açıklama:** Cookie-session ve JWT auth. Trade-off yaz: revoke, ölçek, XSS/CSRF. Hangi durumda hangisi?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **84. Session vs JWT — build both**
+  - **Description:** Cookie-session and JWT auth side by side. Write the
+    trade-offs: revocation, scale, XSS/CSRF. Which fits when?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **85. Ed25519: keypair + sign + verify**
-  - **Açıklama:** Node crypto ile anahtar üret, bir "lisans" imzala, doğrula. POS lisanslama sistemini gerçekten anla.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Generate a keypair with Node crypto, sign a sample "license,"
+    and verify it. Understand asymmetric signing hands-on.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **86. "Neden asimetrik? RSA vs Ed25519" — savunma**
-  - **Açıklama:** Tek paragraf: private ile imzala, public ile doğrula → istemci kopyalayamaz/üretemez. Ed25519 neden RSA'dan tercih edildi (boyut, hız)? Kendi cümlenle.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **86. Write the "why asymmetric? RSA vs Ed25519" argument**
+  - **Description:** One paragraph: sign with the private key, verify with the
+    public key → a client can't forge or reproduce it. Why choose Ed25519 over
+    RSA (size, speed)? In your own words.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 12 — Scraping (Scrape & Compare)
+## Phase 12 — Scraping
 
-- [ ] **87. Playwright: sayfa aç, veri çek**
-  - **Açıklama:** Bir sayfayı otomatik gez, veri topla. Kendi test sayfanda çalış, gerçek siteleri hedef alma.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **87. Playwright: open a page, extract data**
+  - **Description:** Automate a page and collect data. Work against your own test
+    page; do not target real sites.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **88. Pagination + adaptive backoff**
-  - **Açıklama:** Sayfalar arası gez, hata/limit görünce bekleme süresini artır. Dayanıklı toplama.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Walk across pages and increase the wait on errors/limits.
+    Resilient collection.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **89. Etik/ToS çerçevesi yaz**
-  - **Açıklama:** CV'ndeki "bot detection bypass" ifadesini mühendisliğe çevir: async orchestration, backoff, resilience. Mülakatta "bypass" yerine dayanıklılık anlat, sınırları bil.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **89. Write an ethics / ToS note**
+  - **Description:** Frame automation responsibly: respect robots.txt and terms of
+    service, rate-limit, and focus on resilience (async orchestration, backoff)
+    rather than evasion. Know the boundaries.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 13 — Media / SEO / i18n
+## Phase 13 — Media / SEO / i18n
 
-- [ ] **90. Image optimize pipeline (R2 mantığı, local mock)**
-  - **Açıklama:** Yükle → yeniden boyutlandır → CDN key'iyle sun. Cloudflare R2 akışını local olarak taklit et.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **90. Image optimization pipeline (CDN pattern, local mock)**
+  - **Description:** Upload → resize → serve by a CDN key. Mock an object-storage
+    + CDN flow locally.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **91. ThumbHash / blur placeholder**
-  - **Açıklama:** Görsel yüklenene kadar bulanık önizleme. C2C'deki ThumbHash'i anla, LCP'ye etkisi.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Show a blurred preview until the image loads. Understand its
+    effect on LCP.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **92. 120 makale SEO deneyimini teknik checklist'e çevir**
-  - **Açıklama:** On-page/off-page bildiğini teknik SEO'ya bağla: semantic HTML, meta, hız, sitemap, canonical. Frontend performansıyla birleştir.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **92. Turn SEO knowledge into a technical checklist**
+  - **Description:** Map on-page/off-page SEO to the technical side: semantic
+    HTML, meta tags, speed, sitemap, canonical. Combine with front-end
+    performance.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 14 — Test
+## Phase 14 — Testing
 
-- [ ] **93. Vitest: `debounce`/`throttle` unit test**
-  - **Açıklama:** Fake timer ile zamanlamayı test et. 1 numarayı geri getirip test yaz.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **93. Vitest: unit-test `debounce`/`throttle`**
+  - **Description:** Test timing with fake timers. Bring task 1 back and cover it.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **94. React Testing Library: form testi**
-  - **Açıklama:** 22'deki formu test et: yaz, submit et, hata mesajını doğrula. "Kullanıcı gibi" test felsefesi.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **94. React Testing Library: test a form**
+  - **Description:** Test the form from task 22: type, submit, assert the error
+    message. The "test like a user" philosophy.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **95. Jest: service mock + integration**
-  - **Açıklama:** Bir Express/Nest service'ini mock'lu test et. Unit vs integration farkını anlat.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Test an Express/Nest service with mocks. Explain unit vs
+    integration.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **96. e2e happy path (Playwright)**
-  - **Açıklama:** Bir CRUD akışını uçtan uca test et. Test piramidinde e2e nerede durur?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Test a CRUD flow end to end. Where does e2e sit in the test
+    pyramid?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Faz 15 — Docker / deploy
+## Phase 15 — Docker / deploy
 
 - [ ] **97. Dockerfile + multi-stage build**
-  - **Açıklama:** Bir Node app'i imajla. Multi-stage ile imaj boyutunu küçült. Layer cache nasıl çalışır?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Containerize a Node app and shrink the image with a
+    multi-stage build. How does layer caching work?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 - [ ] **98. docker-compose: app + Postgres + Redis**
-  - **Açıklama:** Scrape & Compare stack'ini tek `compose up` ile ayağa kaldır. Servisler nasıl haberleşir?
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+  - **Description:** Bring a full stack up with one `compose up`. How do the
+    services communicate?
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-- [ ] **99. env + secret yönetimi**
-  - **Açıklama:** Config'i koddan ayır, secret'ı repo'ya sokma. 12-factor'ın bu maddesini uygula.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
----
-
-## Faz 16 — CV savunması + system design (mülakatı kazandıran kısım)
-
-> Buraya en son gelinir. Artık her şeyi elinle yaptığın için CV'n silaha döner.
-
-- [ ] **100. Her CV projesi için "neden bu stack" tek sayfa savunma**
-  - **Açıklama:** 4 proje × her büyük kararın gerekçesi + "X olunca ne olur" sorusunun cevabı. Cevaplayamadığın satır = geri dönülecek madde.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **101. STAR × 4 hikâye**
-  - **Açıklama:** A11y platform, offline POS, scraping motoru, C2C marketplace. Her biri 2 dakikada: Durum-Görev-Aksiyon-Sonuç.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **102. System design: URL shortener**
-  - **Açıklama:** Hashing, DB şeması, okuma-ağırlıklı cache (Faz 9'u bağla), ölçek. Kağıtta çiz, sesli anlat.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **103. System design: rate limiter**
-  - **Açıklama:** 55 + 72'yi tasarıma dök: token bucket, dağıtık Redis, trade-off'lar.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **104. System design: notification / job sistemi**
-  - **Açıklama:** Kuyruk, worker, retry, dead-letter. BullMQ bilgini (Faz 9) mimariye çevir. Bu senin en güçlü kartın.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
-
-- [ ] **105. Mock deep-dive: bir projeni seç, acımasız sorgulan**
-  - **Açıklama:** Bir projeni seç ve her katmanına "neden" sorusu sordur (kendine ya da bir mentöre). Savunamadığın her yer, listeye yeni madde.
-  - **Nasıl yaptım:** _(doldur)_
-  - **Ne öğrendim:** _(doldur)_
-  - **Neyi yapamadım:** _(doldur)_
+- [ ] **99. env + secret management**
+  - **Description:** Separate config from code and keep secrets out of the repo.
+    Apply this part of the twelve-factor approach.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
 ---
 
-## Bitiş kriteri
+## Phase 16 — System design and synthesis
 
-Bu backlog "bitti" demek, 105 kutunun işaretli olması değil — o bir yan ürün.
-Gerçek bitiş şu: **CV'ndeki her satırı, kimse yardım etmeden, kendi cümlelerinle
-savunabiliyorsun; ve boş bir editörde donmadan yazabiliyorsun.** O noktaya
-geldiğinde zaten çoktan başvurmuş, çoktan mülakata girmiş olacaksın — çünkü
-liste bitmeden başvurmak da bu planın parçası.
+- [ ] **100. System design: URL shortener**
+  - **Description:** Hashing, DB schema, a read-heavy cache (connect to Phase 9),
+    and scaling. Sketch it and explain out loud.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
 
-_“Neyi yapamadım” alanları senin en dürüst hocan. Onları boş bırakma._
+- [ ] **101. System design: rate limiter**
+  - **Description:** Turn tasks 55 and 72 into a design: token bucket, distributed
+    Redis, trade-offs.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
+
+- [ ] **102. System design: notification / job system**
+  - **Description:** Queue, workers, retries, dead-letter. Turn the BullMQ work
+    from Phase 9 into an architecture.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
+
+- [ ] **103. Capstone: pick one project and interrogate every layer**
+  - **Description:** Choose a project you've built and ask "why" of each layer,
+    end to end. Every part you can't defend becomes a new task on this list.
+  - **How I did it:** _(fill in)_
+  - **What I learned:** _(fill in)_
+  - **What I couldn't do:** _(fill in)_
+
+---
+
+## Finish line
+
+Congratulations on reaching the end of this log.
+
+If the boxes above are checked and the four fields are filled honestly, the
+result isn't a longer résumé — it's a different way of working. You can now start
+from a blank file without freezing, reason from first principles instead of
+pattern-matching, and explain the trade-off behind every tool you reach for.
+That is the real deliverable: not that the code runs, but that you understand
+exactly why it runs the way it does.
+
+The checkmarks were only ever a side effect. Keep the "What I couldn't do"
+fields — they are the most honest record of where to go next, and the habit of
+filling them in is worth more than any single task on this list.
