@@ -3,7 +3,7 @@
 A curated backlog of ~100 small builds for full-stack engineers who want to
 rebuild hands-on fluency and sharpen the reasoning behind everyday tools. Every
 task is written by hand, without AI code generation. The goal is not speed but
-understanding: to write confidently from a blank file and explain the *why*
+understanding: to write confidently from a blank file and explain the _why_
 behind each decision.
 
 The list is ordered by difficulty. It starts with language and platform
@@ -72,12 +72,12 @@ Phase 16  System design and synthesis ............ tie it all together
 
 ## Phase 1 — JavaScript + TypeScript fundamentals
 
-- [ ] **1. Write `debounce` and `throttle` from scratch**
+- [ X ] **1. Write `debounce` and `throttle` from scratch**
   - **Description:** Implement both in a blank file, no libraries. State the
     difference in one sentence and test them on a search input.
-  - **How I did it:** _(fill in)_
-  - **What I learned:** _(fill in)_
-  - **What I couldn't do:** _(fill in)_
+  - **How I did it:** _I created 3 functions, their names useDebounce, useThrottle, useWindowSize. UseDebounce is giving some delay after the finish something. UseThrottle is giving some delay to do this again. UseWindowSize is taking window sizes (height and width)_
+  - **What I learned:** _I was really feel cold hand, its getting better slowly_
+  - **What I couldn't do:** _i still feel cold hand, if i wouldnt keep practice, i will be unsuccessfull. I forgot the basics_
 
 - [ ] **2. Write `deepClone` and `deepEqual`**
   - **Description:** Clone and compare nested objects/arrays. Understand what
@@ -138,7 +138,7 @@ Phase 16  System design and synthesis ............ tie it all together
 
 - [ ] **10. TS: a type-safe `Result<T, E>`**
   - **Description:** Functions returning `{ ok: true, value } | { ok: false,
-    error }` instead of throwing. Use generics.
+error }` instead of throwing. Use generics.
   - **How I did it:** _(fill in)_
   - **What I learned:** _(fill in)_
   - **What I couldn't do:** _(fill in)_
@@ -743,7 +743,7 @@ Phase 16  System design and synthesis ............ tie it all together
 
 - [ ] **90. Image optimization pipeline (CDN pattern, local mock)**
   - **Description:** Upload → resize → serve by a CDN key. Mock an object-storage
-    + CDN flow locally.
+    - CDN flow locally.
   - **How I did it:** _(fill in)_
   - **What I learned:** _(fill in)_
   - **What I couldn't do:** _(fill in)_
