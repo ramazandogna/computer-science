@@ -72,7 +72,7 @@ Phase 16  System design and synthesis ............ tie it all together
 
 ## Phase 1 — JavaScript + TypeScript fundamentals
 
-- [ X ] **1. Write `debounce` and `throttle` from scratch**
+- [ X ] **1. Write `debounce` and `throttle` from scratch** - DONE
   - **Description:** Implement both in a blank file, no libraries. State the
     difference in one sentence and test them on a search input.
   - **How I did it:** _I created 3 functions, their names useDebounce, useThrottle, useWindowSize. UseDebounce is giving some delay after the finish something. UseThrottle is giving some delay to do this again. UseWindowSize is taking window sizes (height and width)_
@@ -86,7 +86,7 @@ Phase 16  System design and synthesis ............ tie it all together
   - **What I learned:** _(fill in)_
   - **What I couldn't do:** _(fill in)_
 
-- [ ] **3. Sequential vs parallel `await` — measure it**
+- [ ] **3. Sequential vs parallel `await` — measure it** - INPROGRESS
   - **Description:** Set up three fake async tasks. Run them with sequential
     `await`, then with `Promise.all`. Compare timings and explain the difference.
   - **How I did it:** _(fill in)_
