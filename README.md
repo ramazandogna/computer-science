@@ -86,12 +86,12 @@ Phase 16  System design and synthesis ............ tie it all together
   - **What I learned:** _(fill in)_
   - **What I couldn't do:** _(fill in)_
 
-- [ ] **3. Sequential vs parallel `await` — measure it** - INPROGRESS
+- [ X ] **3. Sequential vs parallel `await` — measure it** - INPROGRESS
   - **Description:** Set up three fake async tasks. Run them with sequential
     `await`, then with `Promise.all`. Compare timings and explain the difference.
-  - **How I did it:** _(fill in)_
-  - **What I learned:** _(fill in)_
-  - **What I couldn't do:** _(fill in)_
+  - **How I did it:** 2 _function for see the differences, its using console.time, timeEnd and log. Its starting when page is rendered. If we use sequential method total time is all functions time plus but if we use parallel method with promiseAll, its taking only longest function (its about time)_
+  - **What I learned:** _I write two function and i learnt how can i write await and promiseAll_
+  - **What I couldn't do:** _X_
 
 - [ ] **4. Build a mini `Promise`**
   - **Description:** A small promise class supporting chained `then`,
