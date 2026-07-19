@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent } from "react";
 import { useDebounce, useWindowSize } from "./utils/helpers";
+import { sequentalAndParallel } from "./utils/sequential_vs_parallel";
 
 function App() {
   const [inputV, setInputV] = useState("Test");
@@ -11,6 +12,8 @@ function App() {
   function handleInput(e: ChangeEvent<HTMLInputElement>) {
     debounce(e.target.value);
   }
+
+  sequentalAndParallel()
 
   const size = useWindowSize();
 
