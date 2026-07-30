@@ -93,13 +93,13 @@ Phase 16  System design and synthesis ............ tie it all together
   - **What I learned:** _I write two function and i learnt how can i write await and promiseAll_
   - **What I couldn't do:** _X_
 
-- [ ] **4. Build a mini `Promise`**
+- [ X ] **4. Build a mini `Promise`**
   - **Description:** A small promise class supporting chained `then`,
     `resolve`/`reject`, and pending/fulfilled state. Understand why it runs on
     the microtask queue.
-  - **How I did it:** _(fill in)_
-  - **What I learned:** _(fill in)_
-  - **What I couldn't do:** _(fill in)_
+  - **How I did it:** _I created a comonent for using sync promise method and i printed states on the screen for learning._
+  - **What I learned:** _How can i write a promise and how its work._
+  - **What I couldn't do:** _I didnt know before reading developer mozilla and writing this component._
 
 - [ ] **5. Predict event-loop output**
   - **Description:** Write a snippet mixing sync code, `Promise`, and
