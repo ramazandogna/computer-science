@@ -1,38 +1,48 @@
-import { useState, type ChangeEvent } from "react";
-import { useDebounce, useWindowSize } from "./utils/helpers";
-import { sequentalAndParallel } from "./utils/sequential_vs_parallel";
+import { useState } from "react";
+import MainPage from "./pages/MainPage";
+import Second from "./pages/Second";
+
+// The whole "router": a union of the pages we can be on.
+type Page = "main" | "second";
+
+const PAGES: { key: Page; label: string }[] = [
+  { key: "main", label: "Main Page" },
+  { key: "second", label: "Second Page" },
+];
 
 function App() {
-  const [inputV, setInputV] = useState("Test");
-
-  const debounce = useDebounce((val: string) => {
-    setInputV(val);
-  }, 500);
-
-  function handleInput(e: ChangeEvent<HTMLInputElement>) {
-    debounce(e.target.value);
-  }
-
-  sequentalAndParallel()
-
-  const size = useWindowSize();
+  const [page, setPage] = useState<Page>("main");
 
   return (
     <>
-      <section id="center">
-        <div>
-          <h2>debounce</h2>
-          <input type="text" onChange={handleInput} />
-          <p>{inputV}</p>
-          <p>
-            They are gonna update 1000ms later <br />
-            height:{size.height}
-            <br />
-            width:{size.width}
-          </p>
-        </div>
-        <br />
-      </section>
+      <nav style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
+        {PAGES.map(({ key, label }) => {
+          const isActive = page === key;
+
+          return (
+            <button
+              key={key}
+              onClick={() => setPage(key)}
+              // aria-current tells screen readers which item is the active page.
+              aria-current={isActive ? "page" : undefined}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                font: "inherit",
+                color: isActive ? "#4a90d9" : "#888",
+                textDecoration: isActive ? "underline" : "none",
+                fontWeight: isActive ? 700 : 400,
+              }}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </nav>
+
+      <main>{page === "main" ? <MainPage /> : <Second />}</main>
     </>
   );
 }
