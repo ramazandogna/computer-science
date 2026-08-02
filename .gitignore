@@ -5,3 +5,6 @@ dist/
 .idea/
 *.log
 .env
+hennge-challenge/challenge
+hennge-challenge/hennge-admission-challenge-rules.html
+hennge-challenge/frontend_password_validation_v1_challenge.tar.gz
