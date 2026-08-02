@@ -101,12 +101,12 @@ Phase 16  System design and synthesis ............ tie it all together
   - **What I learned:** _How can i write a promise and how its work._
   - **What I couldn't do:** _I didnt know before reading developer mozilla and writing this component._
 
-- [ ] **5. Predict event-loop output**
+- [ X ] **5. Predict event-loop output**
   - **Description:** Write a snippet mixing sync code, `Promise`, and
     `setTimeout`. Predict the output order before running, then verify.
-  - **How I did it:** _(fill in)_
-  - **What I learned:** _(fill in)_
-  - **What I couldn't do:** _(fill in)_
+  - **How I did it:** _I created some funtions; reset, printer, starter and racer. In the racer functions, we wrote some events, Promise, console.log and setTimer and we saw what is the output._
+  - **What I learned:** _If we using .then() its the naturaly way of the delay because of in the heap its create new promise.. _
+  - **What I couldn't do:** _.then(), .catch() and the other functioncs_
 
 - [ ] **6. Counter factory with closures + the module pattern**
   - **Description:** A counter factory holding private state unreachable from

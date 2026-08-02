@@ -1,13 +1,15 @@
 import { useState } from "react";
 import MainPage from "./pages/MainPage";
 import Second from "./pages/Second";
+import EventLoopPlayground from "./pages/PredictEventLoop";
 
 // The whole "router": a union of the pages we can be on.
-type Page = "main" | "second";
+type Page = "main" | "second" | "predict";
 
 const PAGES: { key: Page; label: string }[] = [
   { key: "main", label: "Main Page" },
   { key: "second", label: "Second Page" },
+  { key: "predict", label: "Predict Event Loop" },
 ];
 
 function App() {
@@ -42,7 +44,15 @@ function App() {
         })}
       </nav>
 
-      <main>{page === "main" ? <MainPage /> : <Second />}</main>
+      <main>
+        {page === "main" ? (
+          <MainPage />
+        ) : page === "predict" ? (
+          <EventLoopPlayground />
+        ) : (
+          <Second />
+        )}
+      </main>
     </>
   );
 }
